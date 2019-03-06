@@ -1,12 +1,33 @@
 // DX12-Raytracing-demo.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
 #include <iostream>
+#include <systemclass.h>
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	SystemClass* system;
+	bool result;
+
+	system = new SystemClass;
+
+	if (!system)
+	{
+		return 0;
+	}
+
+	result = system->Initialize();
+
+	if (result)
+	{
+		system->Run();
+	}
+
+	system->Shutdown();
+	delete system;
+	system = nullptr;
+
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
