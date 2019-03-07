@@ -2,14 +2,14 @@
 //
 
 #include <iostream>
-#include <systemclass.h>
+#include <Engine.h>
 
 int main()
 {
-	SystemClass* system;
+	Engine* system;
 	bool result;
 
-	system = new SystemClass;
+	system = new Engine;
 
 	if (!system)
 	{

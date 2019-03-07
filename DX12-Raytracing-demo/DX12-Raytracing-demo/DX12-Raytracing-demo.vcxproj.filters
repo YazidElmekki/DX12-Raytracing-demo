@@ -15,13 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\SystemClass.h">
+    <ClInclude Include="Include\DirectXRHI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\InputClass.h">
+    <ClInclude Include="Include\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GraphicsClass.h">
+    <ClInclude Include="Include\GraphicDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,13 +32,13 @@
     <ClCompile Include="DX12-Raytracing-demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\SystemClass.cpp">
+    <ClCompile Include="source\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\InputClass.cpp">
+    <ClCompile Include="source\GraphicDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\GraphicsClass.cpp">
+    <ClCompile Include="source\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

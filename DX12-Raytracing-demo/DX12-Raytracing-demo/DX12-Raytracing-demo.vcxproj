@@ -157,15 +157,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Include\GraphicsClass.h" />
-    <ClInclude Include="Include\InputClass.h" />
-    <ClInclude Include="Include\SystemClass.h" />
+    <ClInclude Include="Include\DirectXRHI.h" />
+    <ClInclude Include="Include\GraphicDevice.h" />
+    <ClInclude Include="Include\Input.h" />
+    <ClInclude Include="Include\Engine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX12-Raytracing-demo.cpp" />
-    <ClCompile Include="source\GraphicsClass.cpp" />
-    <ClCompile Include="source\InputClass.cpp" />
-    <ClCompile Include="source\SystemClass.cpp" />
+    <ClCompile Include="source\GraphicDevice.cpp" />
+    <ClCompile Include="source\Input.cpp" />
+    <ClCompile Include="source\Engine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

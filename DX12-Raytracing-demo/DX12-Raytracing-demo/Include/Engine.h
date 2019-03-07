@@ -1,22 +1,22 @@
-#ifndef __SYSTEMCLASS_H__
-#define __SYSTEMCLASS_h__
+#ifndef __ENGINE_H__
+#define __ENGINE_h__
 
 #define WIN32_LEAN_AND_MEAN
 
 #include <Windows.h>
 
-#include "InputClass.h"
-#include "GraphicsClass.h"
+#include "Input.h"
+#include "GraphicDevice.h"
 
 
-class SystemClass
+class Engine
 {
 public:
-	SystemClass() = default;
-	SystemClass(const SystemClass&) = delete;
-	SystemClass(SystemClass&&) = delete;
+	Engine() = default;
+	Engine(const Engine&) = delete;
+	Engine(Engine&&) = delete;
 
-	~SystemClass() = default;
+	~Engine() = default;
 
 	bool Initialize();
 	void Shutdown();
@@ -34,12 +34,12 @@ private:
 	HINSTANCE _hInstance;
 	HWND _hwnd;
 
-	InputClass* _input = nullptr;
-	GraphicsClass* _graphics = nullptr;
+	Input* _input = nullptr;
+	GraphicDevice* _graphics = nullptr;
 };
 
 static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-static SystemClass* ApplicationHandle = 0;
+static Engine* ApplicationHandle = 0;
 
 #endif // !__SYSTEMCLASS_H__

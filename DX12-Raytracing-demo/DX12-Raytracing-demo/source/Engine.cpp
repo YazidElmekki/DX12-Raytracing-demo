@@ -1,13 +1,13 @@
-#include "SystemClass.h"
+#include "Engine.h"
 
-bool SystemClass::Initialize()
+bool Engine::Initialize()
 {
 	int screenWidth = 0;
 	int screenHeight = 0;
 
 	InitializeWindows(screenWidth, screenHeight);
 
-	_input = new InputClass;
+	_input = new Input;
 	if (!_input)
 	{
 		return false;
@@ -15,7 +15,7 @@ bool SystemClass::Initialize()
 
 	_input->Initialize();
 
-	_graphics = new GraphicsClass;
+	_graphics = new GraphicDevice;
 
 	if (!_graphics)
 	{
@@ -27,7 +27,7 @@ bool SystemClass::Initialize()
 	return result;
 }
 
-void SystemClass::Shutdown()
+void Engine::Shutdown()
 {
 	if (_graphics)
 	{
@@ -45,7 +45,7 @@ void SystemClass::Shutdown()
 	ShutdownWindows();
 }
 
-void SystemClass::Run()
+void Engine::Run()
 {
 	MSG msg;
 
@@ -75,7 +75,7 @@ void SystemClass::Run()
 	}
 }
 
-bool SystemClass::Frame()
+bool Engine::Frame()
 {
 	if (_input->IsKeyDown(VK_ESCAPE))
 	{
@@ -85,7 +85,7 @@ bool SystemClass::Frame()
 	return _graphics->Frame();
 }
 
-LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK Engine::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {
 	switch (umsg)
 	{
@@ -106,7 +106,7 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 	}
 }
 
-void SystemClass::InitializeWindows(int& width, int& height)
+void Engine::InitializeWindows(int& width, int& height)
 {
 	WNDCLASSEX wc;
 	DEVMODE dmScreenSettings;
@@ -165,7 +165,7 @@ void SystemClass::InitializeWindows(int& width, int& height)
 	SetFocus(_hwnd);
 }
 
-void SystemClass::ShutdownWindows()
+void Engine::ShutdownWindows()
 {
 	if (FULL_SCREEN)
 	{
