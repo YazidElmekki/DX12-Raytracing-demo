@@ -14,10 +14,22 @@ public:
 	void KeyDown(unsigned int key);
 	void KeyUp(unsigned int key);
 	
+	void MouseUp(unsigned int mouseButton);
+	void MouseDown(unsigned int mouseButton);
+
 	bool IsKeyDown(unsigned int);
+
+	void SetMousePos(int x, int y)
+	{
+		_mouseX = x;
+		_mouseY = y;
+	}
 
 private:
 	bool _keys[256];
+	bool _mouseButtons[3];
+	int _mouseX;
+	int _mouseY;
 };
 
 #endif // !__INPUTCLASS_H__

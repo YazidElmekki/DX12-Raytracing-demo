@@ -66,6 +66,8 @@ void Engine::Run()
 		}
 		else
 		{
+			OnUpdate();
+
 			bool result = Frame();
 			if (!result)
 			{
@@ -82,7 +84,14 @@ bool Engine::Frame()
 		return false;
 	}
 
-	return _graphics->Frame();
+	bool result = _graphics->Frame();
+
+	if (result)
+	{
+		OnUpdate();
+	}
+
+	return result;
 }
 
 LRESULT CALLBACK Engine::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
@@ -92,11 +101,38 @@ LRESULT CALLBACK Engine::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPA
 		case WM_KEYDOWN:
 		{
 			_input->KeyDown((unsigned int)wparam);
+			OnKeyPress((unsigned int)wparam);
 			return 0;
 		}
 		case WM_KEYUP:
 		{
 			_input->KeyUp((unsigned int)wparam);
+			OnKeyPress((unsigned int)wparam);
+			return 0;
+		}
+		case WM_MBUTTONDOWN:
+		{
+			_input->MouseDown((unsigned int)wparam);
+			OnMouseButtonPress((unsigned int)wparam);
+			return 0;
+		}
+		case WM_MBUTTONUP:
+		{
+			_input->MouseUp((unsigned int)wparam);
+			OnMouseButtonPress((unsigned int)wparam);
+			return 0;
+		}
+		case WM_MOUSEMOVE:
+		{
+			LPPOINT point;
+			GetCursorPos(point);
+			_input->SetMousePos(point->x, point->y);
+			OnMouseMove();
+			return 0;
+		}
+		case WM_MOUSEHWHEEL:
+		{
+			OnMouseWheel(WHEEL_DELTA > 0 ? 1 : -1);
 			return 0;
 		}
 		default:
@@ -181,6 +217,23 @@ void Engine::ShutdownWindows()
 	ApplicationHandle = NULL;
 }
 
+void Engine::Resize(uint32_t width, uint32_t height)
+{
+	if (_graphics)
+	{
+		_graphics->Resize(width, height);
+		OnResize(width, height);
+	}
+}
+
+void Engine::GetWindowSize(uint32_t& width, uint32_t& height) const
+{
+	RECT rect;
+	GetWindowRect(_hwnd, &rect);
+	width = rect.right - rect.left;
+	height = rect.bottom - rect.top;
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 {
 	switch (umessage)
@@ -191,6 +244,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam)
 			PostQuitMessage(0);
 			return 0;
 		}
+
+		case WM_SIZE:
+			RECT rect;
+			GetWindowRect(hwnd, &rect);
+			ApplicationHandle->Resize(rect.right-rect.left,rect.bottom-rect.top);
+			break;
 
 		default:
 		{

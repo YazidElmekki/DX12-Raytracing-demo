@@ -1,12 +1,12 @@
 #ifndef __GRAPHICDEVICE_H_INCLUDED__
 #define __GRAPHICDEVICE_H_INCLUDED__
 
-#include <Windows.h>
+#include "DirectXRHI.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
-const bool SCREEN_DEPTH = 1000.0f;
-const bool SCREEN_NEAR = 0.1f;
+const float CAMERA_FAR = 1000.0f;
+const float CAMERA_NEAR = 0.1f;
 
 class GraphicDevice
 {
@@ -21,9 +21,13 @@ public:
 	void Shutdown();
 
 	bool Frame();
+	
+	void Resize(uint32_t width, uint32_t height);
 
 private:
 	bool Render();
+
+	DirectXRHI* _directXRHI = nullptr;
 };
 
 #endif // !__GRAPHICDEVICE_H_INCLUDED__

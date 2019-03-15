@@ -16,19 +16,38 @@ public:
 	Engine(const Engine&) = delete;
 	Engine(Engine&&) = delete;
 
-	~Engine() = default;
+	virtual ~Engine() = default;
 
-	bool Initialize();
-	void Shutdown();
+	virtual bool Initialize();
+	virtual void Shutdown();
 	void Run();
 
+	virtual void OnUpdate() {};
+	virtual void OnRender() {};
+	virtual void OnMouseMove() {};
+	virtual void OnKeyPress(unsigned int key) {};
+	virtual void OnKeyUp(unsigned int key) {};
+	virtual void OnMouseButtonPress(unsigned int mouseButton) {};
+	virtual void OnMouseButtonUp(unsigned int mouseButton) {};
+	virtual void OnResize(uint32_t width, uint32_t height) {};
+	virtual void OnMouseWheel(int32_t dir) {};
+
+	virtual bool LoadContent() {};
+	virtual void UnloadContent() {};
+
+
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
+
+	virtual void Resize(uint32_t width, uint32_t height);
+
+	void GetWindowSize(uint32_t& width, uint32_t& height) const;
+	
+	Input* GetInput() const { return _input; }
 
 private:
 	bool Frame();
 	void InitializeWindows(int& width, int& height);
 	void ShutdownWindows();
-
 
 	LPCWSTR _applicationName;
 	HINSTANCE _hInstance;
